@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace WitchyTwitchy
 {
-
+    // This is now using a configuration directory ( /Config )
+    // And a config.txt and a DO_NOT_SHARE.txt
+    // config.txt contains your username and channel to join
+    // DO_NOT_SHARE.txt will contain your OAUTH from twitch
+    // if these locations and files do not exist, we create them on the first run.
+    //
+    //
+    //
+    //
     // IRC Login Requirements: NICK and PASS. USER is not necessary
     // Twitch will require the OAuth token for the password from https://twitchapps.com/tmi/
     // Use a Twitch account that isnt your main account
