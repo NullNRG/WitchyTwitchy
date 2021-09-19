@@ -115,7 +115,7 @@ namespace WitchyTwitchy
             //Listen for !hey command
             if (twitchChatMessage.Message.Equals("hi".ToLower()))
             {
-                Task task = twitchBot.SendMessage(twitchChatMessage.Channel, $"Hey there {twitchChatMessage.Sender}");
+                //Task task = twitchBot.SendMessage(twitchChatMessage.Channel, $"Hey there {twitchChatMessage.Sender}");
             }
 
             string msg = twitchChatMessage.Message;
@@ -126,7 +126,7 @@ namespace WitchyTwitchy
             /// PLAYER 1 CONTROLLS
 
             //  Left
-            if (msg.Contains("l") || msg.Contains("i"))
+/*            if (msg.Contains("l") || msg.Contains("i"))
             {
                 Task task = PushButtons(VirtualKeyCode.VK_A, new TimeSpan(5000), 1500);
             }
@@ -159,7 +159,7 @@ namespace WitchyTwitchy
             if (msg.Contains("g") || msg.Contains("o"))
             {
                 Task task = PushButtons(VirtualKeyCode.VK_G, new TimeSpan(5000), 100);
-            }
+            }*/
         }
 
         public static async Task PushButtons(VirtualKeyCode key, TimeSpan span, int ms)
