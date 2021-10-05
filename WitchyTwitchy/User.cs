@@ -68,15 +68,17 @@ namespace WitchyTwitchy
                         }
                     }
                 }
+                UserNameColorSet = true; 
                 this.NewUser = false;
+                //TODO: Also add checks for if a user permissions  had been changed, and update the user permissions and color to reflaect that
             }
 
 
         }
 
-        private void SetPermissions(User user, UserPermissions permission)
+        private void SetPermissions(User user, UserPermissions permission) 
         {
-            user.Permission = permission;
+            user.Permission = permission; //TODO: Change this behavior to check the specified permission for validation
 
         }
         private void SetUserNameColor(UserPermissions permission)
