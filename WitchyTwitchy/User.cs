@@ -53,8 +53,6 @@ namespace WitchyTwitchy
 
                             Console.WriteLine("Cant set permissions for " + this.UserName);
                         }
-                        
-
                     }
 
                     if (this.UserNameColorSet == false)
@@ -68,7 +66,6 @@ namespace WitchyTwitchy
 
                             Console.WriteLine("Cant set usename Color for " + this.UserName);
                         }
-                          
                     }
                 }
                 this.NewUser = false;
