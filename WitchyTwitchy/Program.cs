@@ -56,46 +56,7 @@ namespace WitchyTwitchy
                 Console.WriteLine($"{twitchChatMessage.Message}");
                 string msg = twitchChatMessage.Message;
 
-                /// Listen for commands
-                /// NIDHOGG 2  
-                ///
-                /// PLAYER 1 CONTROLLS
-
-                //  Left
-                if (msg.Contains("l") || msg.Contains("i"))
-                {
-                    await PushButtons(VirtualKeyCode.VK_A, new TimeSpan(5000), 1500);
-                }
-
-                //  Right
-                if (msg.Contains("r") || msg.Contains("e"))
-                {
-                    await PushButtons(VirtualKeyCode.VK_D, new TimeSpan(5000), 1500);
-                }
-
-                // UP
-                if (msg.Contains("t") || msg.Contains("b"))
-                {
-                    await PushButtons(VirtualKeyCode.VK_W, new TimeSpan(5000), 1000);
-                }
-
-                // Crouch 
-                if (msg.Contains("s"))
-                {
-                    await PushButtons(VirtualKeyCode.VK_S, new TimeSpan(100), 100);
-                }
-
-                // Attack
-                if (msg.Contains("f") || msg.Contains("a"))
-                {
-                    await PushButtons(VirtualKeyCode.VK_F, new TimeSpan(5000), 100);
-                }
-
-                // Jump
-                if (msg.Contains("g") || msg.Contains("o"))
-                {
-                    await PushButtons(VirtualKeyCode.VK_G, new TimeSpan(5000), 100);
-                }
+            // Message Handler Code Go Here
             };*/
 
 
