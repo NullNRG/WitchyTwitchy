@@ -35,11 +35,14 @@ namespace WitchyTwitchy
         private static TwitchBot twitchBot;
         private static readonly InputSimulator sim = new InputSimulator();
 
+
+
         private static async Task Main(string[] args)
         {
             ConfigHandler cfgHandler = new ConfigHandler();
             // Enviroment variable alternative: Environment.GetEnvironmentVariable(“TWITCH_OAUTH”)
             twitchBot = new TwitchBot(botUserName, password);
+           
             twitchBot.Start().SafeFireAndForget();
             //We could .SafeFireAndForget() these two calls if we want to
             await twitchBot.JoinChannel(channelName.ToLower());
@@ -67,8 +70,19 @@ namespace WitchyTwitchy
 
         private static void OnMessage(object sender, TwitchChatMessage twitchChatMessage)
         {
+
+            
+            var tempUser = new User();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"{twitchChatMessage.Sender}");
+            
+            if (User._users.ContainsKey(twitchChatMessage.Sender))
+            {
+                // Display the users color 
+                tempUser = User._users[twitchChatMessage.Sender];
+                Console.Write($"[M:{tempUser.MessageCount}]");
+                Console.ForegroundColor = tempUser.UserColor;
+            }
+            Console.Write($"{tempUser.UserName}");
             Console.ResetColor();
             Console.Write($": ");
             Console.WriteLine($"{twitchChatMessage.Message}");

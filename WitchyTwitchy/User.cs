@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace WitchyTwitchy
@@ -11,7 +12,8 @@ namespace WitchyTwitchy
         Mod,
         SuperMod,
         Admin,
-        Owner
+        Owner,
+        Custom
     }
     enum UserColor
     {
@@ -25,24 +27,31 @@ namespace WitchyTwitchy
     }
     internal class User
     {
-        static Dictionary<string, User> _users= new Dictionary<string, User>(); 
+        public static Dictionary<string, User> _users= new Dictionary<string, User>(); 
         public UserPermissions Permission { get; set; }
 
         public string UserName {  get; set; }
         public int Points { get; set; }
         public int MessageCount { get; set; }
         public ConsoleColor UserColor { get; set; }
+        
         bool UserNameColorSet = false;
         bool NewUser = true;
 
-        User()
+        public User()
         {
-            if (!_users.ContainsKey(this.UserName)) // if the username doesnt exist in the dictionary, then set them up as a new user
+
+        }
+        public User(string userName, UserPermissions permission = UserPermissions.Standard)
+        {
+            if (!_users.ContainsKey(userName)) // if the username doesnt exist in the dictionary, then set them up as a new user
             {
+                this.UserName = userName;
                 if (this.NewUser == true)
                 {
+                    //Console.WriteLine($"New user found: {userName}");
 
-                    if (Permission <= UserPermissions.Standard) //TODO: Check a whitelist for users with defined permissions
+                    if (permission <= UserPermissions.Standard) //TODO: Check a whitelist for users with defined permissions
                     {
                         try
                         {
@@ -68,8 +77,13 @@ namespace WitchyTwitchy
                         }
                     }
                 }
+                
                 UserNameColorSet = true; 
+
                 this.NewUser = false;
+
+                _users.Add(userName, this);
+                SaveUser();
                 //TODO: Also add checks for if a user permissions  had been changed, and update the user permissions and color to reflaect that
             }
 
@@ -83,10 +97,21 @@ namespace WitchyTwitchy
         }
         private void SetUserNameColor(UserPermissions permission)
         {
-            switch (permission)
+            this.Permission = permission;
+            foreach (var user in File.ReadAllLines(Environment.CurrentDirectory + @"\Config\topstreamers.txt"))
+            {
+                var userName = user.ToLower();
+
+                if (this.UserName == userName)
+                {
+                    SetPermissions(this,UserPermissions.Custom);
+                }
+
+            }
+            switch (this.Permission)
             {
                 case UserPermissions.Standard:
-                    this.UserColor = ConsoleColor.Gray;
+                    this.UserColor = ConsoleColor.Red;
                     break;
                 case UserPermissions.VIP:
                     this.UserColor = ConsoleColor.Magenta;
@@ -103,9 +128,17 @@ namespace WitchyTwitchy
                 case UserPermissions.Owner:
                     this.UserColor = ConsoleColor.Green;
                     break;
+                case UserPermissions.Custom:
+                    this.UserColor = ConsoleColor.Blue;
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void SaveUser()
+        {
+
         }
 
 

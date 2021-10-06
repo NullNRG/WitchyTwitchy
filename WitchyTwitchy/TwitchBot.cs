@@ -85,9 +85,38 @@ namespace WitchyTwitchy
                 int secondColonPosition = line.IndexOf(':', 1);//the 1 here is what skips the first character
                 string message = line[(secondColonPosition + 1)..];//Everything past the second colon
                 string channel = split[2].TrimStart('#');
-
+                CheckUser(username);
                 MessageEvent(username, message, channel);
             }
+        }
+
+        private void CheckUser(string username)
+        {
+            if (username != null)
+            {
+                if (!User._users.ContainsKey(username))
+                {
+                    CreateNewUser(username);
+                }
+            }
+            if (User._users.Count>=1)
+            {
+                if(User._users.ContainsKey(username))
+                {
+                    User user = User._users[username];
+
+                    user.MessageCount++;
+
+                    //Console.WriteLine($"{username} has sent {user.MessageCount} messages in this server");
+                }
+            }
+            
+        }
+
+        private void CreateNewUser(string username)
+        {
+
+            User user = new User(username, UserPermissions.Standard);
         }
 
         private void MessageEvent(string username, string message, string channel)
